@@ -1,36 +1,40 @@
 package com.academy.dashboard.topicss;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TopicService {
 
-	private List<Topic> topics= new ArrayList<Topic>(Arrays.asList(
-			new Topic("1","Array","Easy"),
-			new Topic("2","Math","Easy"),
-			new Topic("3","Serching","Easy"),
-			new Topic("4","Sorting","Hard")));
+	@Autowired
+	private TopicRepository topicRepository;
+	
 	
 	public List<Topic> getTopics(){
-		return topics;
+		return (List<Topic>) topicRepository.findAll();
 	}
 
-	public Topic getTopic(String id) {
+	public Optional<Topic> getTopic(String id) {
 		
-		for(Topic topic:topics) {
-			if(topic.getId().equals(id))
-				return topic;
-		}
+		 return topicRepository.findById(id);
 		
-		return null;
 	}
 
 	public void addTopic(Topic topic) {
-		topics.add(topic);
 		
+		topicRepository.save(topic);	
+	}
+
+	public void editTopic(Topic topic, String id) {
+		
+		topicRepository.save(topic);
+	}
+
+	public void deleteTopic(String id) {
+		
+		topicRepository.deleteById(id);	
 	}
 }

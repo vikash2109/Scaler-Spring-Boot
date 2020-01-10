@@ -1,10 +1,22 @@
 package com.academy.dashboard.topicss;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Topic {
 
+	@Id
 	private String id;
 	private String title;
 	private String difficulty;
+	
+	
+	
+	public Topic() {
+		super();
+		
+	}
 	public String getId() {
 		return id;
 	}
